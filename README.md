@@ -5,7 +5,7 @@ This repository provides a simple method for external parties to deploy pools on
 - An ERC20 with points
 - An ERC4626 (with or without points, redeemable or not redeemable)
 
-If your yield-bearing asset does not belong to any of the mentioned category, please contact us for a better collaboration.
+Bearing any further complication, please contact us for an in-depth discussion.
 
 ## Set up
 
