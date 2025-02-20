@@ -13,10 +13,10 @@ enum SY_TYPE {
 
 const config = {
   // SY PARAMS
-  name: "SY Yearn WETH",
-  symbol: "SY-yWETH",
-  yieldToken: "0xAc37729B76db6438CE62042AE1270ee574CA7571" as Address,
-  type: SY_TYPE.ERC4626,
+  name: "SY " + "Yearn WETH",
+  symbol: "SY-" + "yWETH",
+  yieldToken: "0xAc37729B76db6438CE62042AE1270ee574CA7571" as Address, // If it's 4626, use the 4626 address. Else, use the erc20 address
+  type: SY_TYPE.ERC4626, // change accordingly
 
   // POOL PARAMS
   expiry: 1750896000,
@@ -25,8 +25,8 @@ const config = {
   desiredImpliedRate: 0.15, // 15%,
 
   // POOL SEEDING
-  tokenToSeed: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" as Address,
-  amountToSeed: 10n ** 18n,
+  tokenToSeed: "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2" as Address, // If it's 4626, it can be the asset or 4626 itself
+  amountToSeed: 10n ** 18n, // change if necessary
 };
 
 async function main() {
@@ -88,7 +88,7 @@ async function main() {
       rateMin: toWei(config.rateMin),
       rateMax: toWei(config.rateMax),
       desiredImpliedRate: toWei(config.desiredImpliedRate),
-      fee: toWei(config.rateMax / 50),
+      fee: toWei(config.rateMax / 25),
     },
     config.tokenToSeed,
     config.amountToSeed,
