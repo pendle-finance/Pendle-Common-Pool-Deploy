@@ -3,6 +3,7 @@ import hre from "hardhat";
 import { setUpFork } from "./fork-setup";
 import { toWei } from "./misc";
 import { PENDLE } from "./consts";
+import { publicClient } from "./client";
 
 enum SY_TYPE {
   ERC4626,
@@ -42,10 +43,13 @@ async function main() {
     "IERC20",
     config.tokenToSeed
   );
-  await tokenToSeedContract.write.approve([
-    commonDeploy.address,
-    config.amountToSeed,
-  ]);
+
+  await publicClient.waitForTransactionReceipt({
+    hash: await tokenToSeedContract.write.approve([
+      commonDeploy.address,
+      config.amountToSeed,
+    ]),
+  });
 
   const constructorParams = encodeAbiParameters(
     [
