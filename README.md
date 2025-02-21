@@ -9,6 +9,12 @@ Bearing any further complication, please contact us for an in-depth discussion.
 
 ## Set up
 
+### Environment
+
+```
+npm i
+```
+
 ### Network and Account
 
 This repo is implemented with hardhat framework. The first step is to initialize your network and account configuration in `./hardhat.config.ts`. Below is an example of a Ethereum-mainnet configuration.
