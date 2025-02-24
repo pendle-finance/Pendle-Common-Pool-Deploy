@@ -44,12 +44,15 @@ async function main() {
     config.tokenToSeed
   );
 
-  await publicClient.waitForTransactionReceipt({
-    hash: await tokenToSeedContract.write.approve([
-      commonDeploy.address,
-      config.amountToSeed,
-    ]),
-  });
+  await tokenToSeedContract.write
+    .approve([PENDLE.COMMON_POOL_DEPLOY_HELPER, config.amountToSeed])
+    .then(async (hash) => {
+      console.log("Approve TxHash:", hash);
+      if (hre.network.name === "hardhat") {
+        return;
+      }
+      await publicClient.waitForTransactionReceipt({ hash });
+    });
 
   const constructorParams = encodeAbiParameters(
     [
@@ -95,7 +98,7 @@ async function main() {
     PENDLE.GOVERNANCE_PROXY,
   ]);
 
-  console.log("Transaction hash:", txHash);
+  console.log("Deploy transaction hash:", txHash);
 }
 
 main()
