@@ -19,7 +19,7 @@ const config = {
   type: SY_TYPE.ERC4626, // change accordingly
 
   // POOL PARAMS
-  expiry: 1750896000,
+  expiry: 1750896000, // Should be thursday
   rateMin: 0.1, // 10%,
   rateMax: 0.2, // 20%,
   desiredImpliedRate: 0.15, // 15%,
@@ -30,6 +30,7 @@ const config = {
 };
 
 async function main() {
+  validateConfig();
   const commonDeploy = await hre.viem.getContractAt(
     "IPendleCommonPoolDeployHelperV2",
     PENDLE.COMMON_POOL_DEPLOY_HELPER
@@ -99,6 +100,18 @@ async function main() {
   ]);
 
   console.log("Deploy transaction hash:", txHash);
+}
+
+function validateConfig() {
+  if (config.rateMin > config.desiredImpliedRate) {
+    throw new Error("rateMin should be less than desiredImpliedRate");
+  }
+  if (config.rateMax < config.desiredImpliedRate) {
+    throw new Error("rateMax should be greater than desiredImpliedRate");
+  }
+  if (config.expiry % 604800 !== 0) {
+    throw new Error("Expiry should be on Thursday");
+  }
 }
 
 main()

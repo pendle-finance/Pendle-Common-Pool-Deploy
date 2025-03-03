@@ -23,8 +23,9 @@ This repo is implemented with hardhat framework. The first step is to initialize
     ...
     // FILL IN YOUR NETWORK & ACCOUNT INFORMATION HERE
     mainnet: {
-      url: 'https://rpc.ankr.com/eth',
-      accounts: ['0x1111111111111111111111111111111111111111111111111111111111111111'],
+      url: process.env.ETH_RPC!,
+      accounts: [`${process.env.PRIVATE_KEYS}`],
+      chainId: 1,
     }
 ```
 
@@ -60,7 +61,7 @@ Details for the params as follow:
 | `symbol`             | Similar to `name`, having `SY-` prefix is required. You can follow it with your `token.symbol()`.             |
 | `yieldToken`         | The address of your ERC20 or ERC4626 token.                                                                  |
 | `type`               | The type of your yield-bearing asset. It can be `SY_TYPE.ERC20`, `SY_TYPE.ERC4626` or `SY_TYPE.ERC4626_NOT_REDEEMABLE`. |
-| `expiry`             | The Unix timestamp for the pool's expiry date.                                                               |
+| `expiry`             | The Unix timestamp for the pool's expiry date. Should be on Thursday 00:00:00 GMT                                                               |
 | `rateMin`            | The minimum interest rate for the pool.                                                                      |
 | `rateMax`            | The maximum interest rate for the pool.                                                                      |
 | `desiredImpliedRate` | The starting interest rate for the pool. We recommend putting in the current spot interest rate (including base interest and points) for the asset respecting to your estimation. |
